@@ -42,7 +42,7 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
     
-        b.ship_init(3)
+        b.ship_init(7)
         b.ship_mover(event)
     
     clock.tick(10)
