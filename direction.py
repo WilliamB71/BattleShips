@@ -9,9 +9,3 @@ class Direction(Enum):
     @property
     def next(self):
         return Direction((self.value + 1) % 4)
-
-d = Direction.NORTH
-
-d = d.next
-
-print(d)

@@ -41,9 +41,12 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
-    
-        b.ship_init(7)
-        b.ship_mover(event)
+        # b.ship_creation(1)
+        # b.ship_mover(event)
+            b.ship_mover(event)
+            b.ship_placement(event)
+    b.temp_ship_control()
+    b.intro_draw()
     
     clock.tick(10)
     
