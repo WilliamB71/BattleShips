@@ -13,13 +13,14 @@ class Ai(Board):
         self.ai_ships = []
         self.ai_hits = []
         self.ai_temp_ship = []
-        self.ai_ships_len = [5, 4, 3, 2, 1]
+        self.ai_ships_len = [6, 6, 4, 3]
         self.ai_temp_orientation = Direction.NORTH
 
     def ai_place_ships(self):
         for ship_len in self.ai_ships_len:
             placed = False
             while not placed:
+                overlap = False
                 position = []
                 direction = Direction(random.randint(0, 3))
                 start_vector = Vector2(random.randint(
@@ -37,7 +38,7 @@ class Ai(Board):
                 if direction == Direction.WEST:
                     position = [Vector2(start_vector.x-i, start_vector.y)
                                 for i in range(ship_len)]
-                
+
                 if position:
                     ship_head_x, ship_head_y = position[0]
                     ship_tail_x, ship_tail_y = position[-1]
@@ -50,17 +51,16 @@ class Ai(Board):
                         continue
                     if ship_tail_y >= self.y or ship_tail_y < 0:
                         continue
-                    else:
-                        if self.ai_ships:
-                            placed_vectors = itertools.chain.from_iterable(self.ai_ships)
-                            for vector in placed_vectors:
-                                if vector in position:
-                                    continue
+                    if self.ai_ships:
+                        placed_vectors = list(
+                            itertools.chain.from_iterable(self.ai_ships))
+                        for vec in placed_vectors:
+                            if vec in position:
+                                overlap = True
+                    if overlap:
+                        continue
                     self.ai_ships.append(position)
                     placed = True
-
-
-
 
 
 border = 0.5
@@ -69,11 +69,10 @@ game_window_y = 32
 pixels = 30
 
 pygame.init()
-game_window = pygame.display.set_mode(((game_window_x+border)*pixels, (game_window_y+border)*pixels))
+game_window = pygame.display.set_mode(
+    ((game_window_x+border)*pixels, (game_window_y+border)*pixels))
 
 
 test = Ai(game_window_x, game_window_x, pixels, border, game_window)
 pygame.init()
 test.ai_place_ships()
-
-

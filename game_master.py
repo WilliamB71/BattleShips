@@ -12,14 +12,15 @@ class GameMaster(Ai, User, Board):
         super().__init__(x, y, pixels, border, main_window)
 
     def user_shoot(self):
-        x_border, y_border= (self.border*self.pixels)/2, (self.border*self.pixels)/4
+        x_border, y_border = (self.border*self.pixels) / \
+            2, (self.border*self.pixels)/4
         mouse_position_x, mouse_position_y = pygame.mouse.get_pos()
-        x_block = (mouse_position_x + x_border - self.pixels)/ self.pixels
+        x_block = (mouse_position_x + x_border - self.pixels) / self.pixels
         y_block = (mouse_position_y + y_border - self.pixels) / self.pixels
 
-        vector = Vector2(round(x_block, 0), round(y_block,0))
+        vector = Vector2(round(x_block, 0), round(y_block, 0))
 
-        ai_ships = itertools.chain.from_iterable(self.ai_ships)
+        ai_ships = list(itertools.chain.from_iterable(self.ai_ships))
 
         if vector in self.user_shots:
             return False
@@ -28,25 +29,17 @@ class GameMaster(Ai, User, Board):
             if vector in ai_ships:
                 self.user_hits.append(vector)
             return True
-            
-
-
-
 
     def game_over_check(self):
-        ai_ships = itertools.chain.from_iterable(self.ai_ships)
-        user_ships = itertools.chain.from_iterable(self.user_ships)
+        ai_ships = list(itertools.chain.from_iterable(self.ai_ships))
+        user_ships = list(itertools.chain.from_iterable(self.user_ships))
 
-        for vector in ai_ships:
-            if vector not in self.user_hits:
-                return False
-
-        for vector_ in user_ships:
-            if vector_ not in self.ai_hits:
-                return False
-
-        else:
+        if len(ai_ships) == len(self.user_hits):
             return True
+        if len(user_ships) == len(self.ai_hits):
+            return True
+        else:
+            return False
 
     def ai_take_shot(self):
         while True:
@@ -66,7 +59,7 @@ class GameMaster(Ai, User, Board):
         if game_started:
             if pygame.mouse.get_pressed()[0]:
                 mouse_pos = pygame.mouse.get_pos()
-                if  mouse_pos[0] > 486 or mouse_pos[-1] > 482:
+                if mouse_pos[0] > 486 or mouse_pos[-1] > 482:
                     pygame.event.wait()
                 else:
                     if self.user_shoot():
@@ -82,8 +75,7 @@ class GameMaster(Ai, User, Board):
                             print('GAME OVER AI WINS')
                             pygame.time.wait(900)
                             pygame.quit()
-    
-    
+
     def gameplay_draw_top(self):
         self.surface_init('Grey')
         self.draw(self.user_shots, 'Dark Grey')
@@ -96,4 +88,3 @@ class GameMaster(Ai, User, Board):
         self.draw(self.ai_shots, 'Dark Grey')
         self.draw(self.ai_hits, 'Red')
         self.update(False)
-        

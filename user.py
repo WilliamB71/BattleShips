@@ -13,7 +13,7 @@ class User(Board):
         self.user_ships = []
         self.user_hits = []
         self.user_temp_ship = []
-        self.user_ships_len = [5, 4, 3, 2, 1]
+        self.user_ships_len = [6, 6, 4, 3]
         self.user_temp_orientation = Direction.SOUTH
 
     def intro_completed(self):

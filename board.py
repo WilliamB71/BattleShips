@@ -1,5 +1,4 @@
 import pygame
-from pygame import Vector2
 
 
 class Board:
@@ -10,13 +9,12 @@ class Board:
         self.border = border
         self.main_window = main_window
         self.colours = {'Blue': (0, 0, 255), 'Red': (
-            255, 0, 0), 'Green': (0, 255, 0), 'Grey': (192, 192, 192), 'Yellow': (255, 191, 0), 'Dark Grey': (99,102,106)}
+            255, 0, 0), 'Green': (0, 255, 0), 'Grey': (192, 192, 192), 'Yellow': (255, 191, 0), 'Dark Grey': (99, 102, 106)}
         self.board_window = pygame.Surface(
             (self.x*self.pixels, self.y*self.pixels))
 
     def surface_init(self, colour_key: str):
         self.board_window.fill(color=self.colours[colour_key])
-
 
     def draw(self, vector_list: list, colour_key: str):
         for vector in vector_list:

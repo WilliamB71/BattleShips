@@ -1,6 +1,7 @@
 import pygame
 from game_master import GameMaster
 
+
 border = 0.5
 game_window_x = 12
 game_window_y = 24
