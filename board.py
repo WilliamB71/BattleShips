@@ -10,7 +10,7 @@ class Board:
         self.border = border
         self.main_window = main_window
         self.colours = {'Blue': (0, 0, 255), 'Red': (
-            255, 0, 0), 'Green': (0, 255, 0), 'Grey': (192, 192, 192), 'Yellow': (255, 191, 0)}
+            255, 0, 0), 'Green': (0, 255, 0), 'Grey': (192, 192, 192), 'Yellow': (255, 191, 0), 'Dark Grey': (99,102,106)}
         self.board_window = pygame.Surface(
             (self.x*self.pixels, self.y*self.pixels))
 
