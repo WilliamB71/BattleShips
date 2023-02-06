@@ -13,7 +13,7 @@ class User(Board):
         self.user_ships = []
         self.user_hits = []
         self.user_temp_ship = []
-        self.user_ships_len = [6, 6, 4, 3]
+        self.user_ships_len = [2, 4, 6, 8, 8]
         self.user_temp_orientation = Direction.SOUTH
 
     def intro_completed(self):
@@ -127,9 +127,10 @@ class User(Board):
 
     def ship_placement(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
+            if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
                 ship = self.user_temp_ship
                 if self.whole_on_board():
                     if not self.temp_ship_over_plaved_ship():
                         self.user_ships.append(ship)
                         self.user_temp_ship = []
+                        self.user_temp_orientation = Direction.SOUTH

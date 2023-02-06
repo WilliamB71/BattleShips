@@ -1,4 +1,5 @@
 import pygame
+from direction import TextMessages as T
 from game_master import GameMaster
 
 
@@ -21,6 +22,7 @@ game_started = False
 
 while True:
     for event in pygame.event.get():
+        print(event)
         if event.type == pygame.QUIT:
             pygame.quit()
 
@@ -35,6 +37,10 @@ while True:
     if not game_started:
         b.temp_ship_control()
         b.intro_draw()
+        b.draw_text(T.intro1, 1, 13, 22)
+        b.draw_text(T.intro2, 2, 15, 18)
+        b.draw_text(T.intro3, 2, 16, 18)
+        b.draw_text(T.intro4, 2, 17, 18)
         game_started = b.intro_completed()
 
     game_started = b.intro_completed()

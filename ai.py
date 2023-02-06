@@ -13,7 +13,7 @@ class Ai(Board):
         self.ai_ships = []
         self.ai_hits = []
         self.ai_temp_ship = []
-        self.ai_ships_len = [6, 6, 4, 3]
+        self.ai_ships_len = [8, 8, 6, 4, 2]
         self.ai_temp_orientation = Direction.NORTH
 
     def ai_place_ships(self):

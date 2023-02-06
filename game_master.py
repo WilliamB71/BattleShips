@@ -15,10 +15,11 @@ class GameMaster(Ai, User, Board):
         x_border, y_border = (self.border*self.pixels) / \
             2, (self.border*self.pixels)/4
         mouse_position_x, mouse_position_y = pygame.mouse.get_pos()
-        x_block = (mouse_position_x + x_border - self.pixels) / self.pixels
-        y_block = (mouse_position_y + y_border - self.pixels) / self.pixels
+        x_block = (mouse_position_x - x_border) // self.pixels
+        y_block = (mouse_position_y - y_border) // self.pixels
 
         vector = Vector2(round(x_block, 0), round(y_block, 0))
+        print(x_block, y_block, vector)
 
         ai_ships = list(itertools.chain.from_iterable(self.ai_ships))
 
@@ -66,15 +67,26 @@ class GameMaster(Ai, User, Board):
                         self.gameplay_draw_top()
                         if self.game_over_check():
                             print('GAME OVER - YOU WIN!')
-                            pygame.time.wait(900)
+                            pygame.time.wait(5000)
                             pygame.quit()
                         pygame.time.wait(300)
                         self.ai_take_shot()
                         self.gameplay_draw_bottom()
                         if self.game_over_check():
                             print('GAME OVER AI WINS')
-                            pygame.time.wait(900)
+                            pygame.time.wait(5000)
                             pygame.quit()
+
+    def draw_text(self, message: str, x_coord, y_coord, font_size, colour=(255, 255, 255), on_game_screen=False):
+        font = pygame.font.SysFont('Comic Sans MS', font_size)
+        text = font.render(message, True, colour)
+        text_rect = text.get_rect()
+        text_rect.x, text_rect.y = x_coord*self.pixels, y_coord*self.pixels
+        text_rect.center
+        if on_game_screen:
+            self.board_window.blit(text, text_rect)
+        else:
+            self.main_window.blit(text, text_rect)
 
     def gameplay_draw_top(self):
         self.surface_init('Grey')

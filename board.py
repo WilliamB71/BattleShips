@@ -29,5 +29,4 @@ class Board:
             _y += (self.y*self.pixels) + (2*_y)
 
         self.main_window.blit(self.board_window, (_x, _y))
-        self.main_window
         pygame.display.update()
